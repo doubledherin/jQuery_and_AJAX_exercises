@@ -40,6 +40,11 @@ def wall_list():
         "messages": session.setdefault('wall', DEFAULT_MESSAGES),
     }
 
+# TODO: Figure out how and where to invoke this method
+def wall_clear():
+    """Clear messages from session."""
+    print "wall_clear from api is running"
+    session['wall'] = DEFAULT_MESSAGES
 
 def wall_add(msg):
     """Set a new message.
@@ -57,5 +62,5 @@ def wall_add(msg):
 
     result = wall_list()
     result["result"] = "Message Received"
-
+    # print session
     return result

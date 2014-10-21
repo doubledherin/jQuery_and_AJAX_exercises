@@ -1,8 +1,8 @@
 import json
 
-from flask import Flask, request, render_template, make_response
+from flask import Flask, request, render_template, make_response, redirect
 
-from api import wall_list, wall_add, wall_error
+from api import wall_list, wall_add, wall_error, wall_clear
 
 
 app = Flask(__name__)
@@ -74,7 +74,12 @@ def add_message():
 
     return _convert_to_JSON(result)
 
-
+@app.route("/api/wall/clear", methods=['POST'])
+def clear_wall():
+    """Deletes all the messages on the wall and replaces with default message."""
+    wall_clear()
+    print "clear-wall from wall.py is running!"
+    return redirect("/api/wall/list")
 
 if __name__ == "__main__":
     app.run(debug=True)

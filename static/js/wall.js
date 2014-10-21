@@ -4,6 +4,7 @@ $(document).ready(function () {
     // function, this code only gets run when the document finishing loading.
     getMessages();
     $("#message-form").submit(handleFormSubmit);
+    $("#panel-body-clear").on("click", clearMessages);
 });
 
 
@@ -23,6 +24,34 @@ function handleFormSubmit(evt) {
     textArea.val("");
 }
 
+// HERE IS THE FUNCTION WE STARTED TO WRITE
+/**
+ * Handle submission of the form.
+ */
+function clearMessages(evt) {
+    //alert("WTF?>!");
+    evt.preventDefault();
+
+
+    $.post(
+        "api/wall/clear",
+        function (){
+            console.log("Deleting messages");
+            //alert("I'm running!!!");
+            getMessages();
+        });
+
+
+    // var textArea = $("#message");
+    // var msg = textArea.val();
+
+    // console.log("handleFormSubmit: ", msg);
+    // addMessage(msg);
+
+    // // Reset the message container to be empty
+    // textArea.val("");
+}
+
 
 /**
  * Makes AJAX call to the server and the message to it.
@@ -33,6 +62,7 @@ function addMessage(msg) {
         {'m': msg},
         function (data) {
             console.log("addMessage: ", data);
+            getMessages();
             displayResultStatus(data.result);
         }
     );
@@ -42,24 +72,13 @@ function getMessages() {
     $.get(
         "/api/wall/list",
         function (data) {
-            // console.log(data);
-            // console.log(data.messages);
-
+            console.log(data);
             $("#message-container").empty();
 
             $(data.messages).each(function(msg){
                 var message_text = data.messages[msg].message;
                 $('#message-container').append('<li class="list-group-item">'+ message_text + '</li>');
-
             });
-
-            // $('#message-container').append(<li class="list-group-item">message_text</li>);
-
-
-            // // what do we call the list?
-            // li_length = list.length;
-            // for (i=0, i<li_length, i++){
-
         }
     );
 }
