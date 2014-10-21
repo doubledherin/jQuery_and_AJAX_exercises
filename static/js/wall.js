@@ -2,7 +2,7 @@ $(document).ready(function () {
     // Normally, JavaScript runs code at the time that the <script>
     // tags loads the JS. By putting this inside a jQuery $(document).ready()
     // function, this code only gets run when the document finishing loading.
-
+    getMessages();
     $("#message-form").submit(handleFormSubmit);
 });
 
@@ -34,6 +34,32 @@ function addMessage(msg) {
         function (data) {
             console.log("addMessage: ", data);
             displayResultStatus(data.result);
+        }
+    );
+}
+
+function getMessages() {
+    $.get(
+        "/api/wall/list",
+        function (data) {
+            // console.log(data);
+            // console.log(data.messages);
+
+            $("#message-container").empty();
+
+            $(data.messages).each(function(msg){
+                var message_text = data.messages[msg].message;
+                $('#message-container').append('<li class="list-group-item">'+ message_text + '</li>');
+
+            });
+
+            // $('#message-container').append(<li class="list-group-item">message_text</li>);
+
+
+            // // what do we call the list?
+            // li_length = list.length;
+            // for (i=0, i<li_length, i++){
+
         }
     );
 }
