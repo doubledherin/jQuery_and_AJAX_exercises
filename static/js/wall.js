@@ -4,7 +4,7 @@ $(document).ready(function () {
     // function, this code only gets run when the document finishing loading.
     getMessages();
     $("#message-form").submit(handleFormSubmit);
-    $("#panel-body-clear").on("click", clearMessages);
+    $("#messages-clear").on("click", clearMessages);
 });
 
 
@@ -37,19 +37,9 @@ function clearMessages(evt) {
         "api/wall/clear",
         function (){
             console.log("Deleting messages");
-            //alert("I'm running!!!");
+            alert("I'm running!!!");
             getMessages();
         });
-
-
-    // var textArea = $("#message");
-    // var msg = textArea.val();
-
-    // console.log("handleFormSubmit: ", msg);
-    // addMessage(msg);
-
-    // // Reset the message container to be empty
-    // textArea.val("");
 }
 
 
