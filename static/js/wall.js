@@ -17,6 +17,7 @@ function handleFormSubmit(evt) {
     var textArea = $("#message");
     var msg = textArea.val();
 
+
     console.log("handleFormSubmit: ", msg);
     addMessage(msg);
 
