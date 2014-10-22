@@ -22,12 +22,16 @@ function handleFormSubmit(evt) {
 
     // Reset the message container to be empty
     textArea.val("");
+
+    $("#message-send").prop("disabled",true);
+    
+    setTimeout(function () {
+        $("#message-send").prop("disabled",false);
+    }, 5000);
+
 }
 
-// HERE IS THE FUNCTION WE STARTED TO WRITE
-/**
- * Handle submission of the form.
- */
+
 function clearMessages(evt) {
     //alert("WTF?>!");
     evt.preventDefault();
@@ -37,7 +41,7 @@ function clearMessages(evt) {
         "api/wall/clear",
         function (){
             console.log("Deleting messages");
-            alert("I'm running!!!");
+            alert("Are you sure you want to clear all the messages?");
             getMessages();
         });
 }
